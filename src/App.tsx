@@ -1,24 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Form from './components/Form';
+
+import TodoItem from './components/TodoItem';
+import { todoType } from './types';
 
 function App() {
+  const [ todo, setTodo ] = useState<todoType[]>([])
+  const [ isCompleted, setCompleted ] = useState<boolean>(false)
+  const [ input, setInput ] = useState<string>("")
+  const [ isEdited, setEdited ] = useState<boolean>(false)
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1 className="app__title">To-do app</h1>
+      <div className="app__content">
+        <Form 
+          todo={todo} 
+          setTodo={setTodo} 
+          input={input} 
+          setInput={setInput}
+          isEdited={isEdited}
+        />
+        <ul className="app__list">
+          {todo.map((item) => (
+            <TodoItem key={item.id} 
+              todoList={todo} 
+              setTodo={setTodo} 
+              data={item} 
+              isCompleted={isCompleted} 
+              setCompleted={setCompleted}
+              input={input} 
+              setInput={setInput}
+              setEdited={setEdited}
+            />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
