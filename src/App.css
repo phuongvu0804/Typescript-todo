@@ -1,5 +1,6 @@
 :root {
   --light-blue: #b8d3e4;
+  --dark-blue: #71b9e6;
   --pink: #d35c4d;
   --yellow: #ffd171;
   --brown: #744c24;
@@ -75,11 +76,13 @@ body {
   padding: 10px 20px;
   font-weight: 800;
   background-color: var(--light-blue);
+  outline: none;
 }
 
-.app__btn:hover {
-  opacity: 0.8;
+.app__btn--submit:hover {
+  background-color: var(--dark-blue);
   transition: all 0.3s ease;
+
 }
 
 .app__list {
@@ -93,7 +96,6 @@ body {
   font-weight: 600;
   text-align: left;
   padding: 20px 0 20px 0;
-  border-top: 1px solid var(--brown);
   border-bottom: 1px solid var(--brown);
 }
 
@@ -123,13 +125,23 @@ body {
 }
 
 .app__btn--complete {
-  background-color: rgb(81, 143, 81);
+  background-color: rgb(102, 163, 102);
   color: #fff;
 }
 
+.app__btn--complete:hover {
+  background-color: rgb(47, 129, 47);
+  transition: all 0.3s ease;
+}
+
 .app__btn--edit {
-  background-color: rgb(239 168 11);
+  background-color: rgb(233, 176, 54);
   color: #fff;
+}
+
+.app__btn--edit:hover {
+  background-color: rgb(196, 139, 16);
+  transition: all 0.3s ease;  
 }
 
 .app__btn--edit.editting {
@@ -140,6 +152,11 @@ body {
 .app__btn--delete {
   background-color: var(--pink);
   color: #fff;
+}
+
+.app__btn--delete:hover {
+  background-color: #91382c;
+  transition: all 0.3s ease;  
 }
 
 @media (max-width: 740px) {

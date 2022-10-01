@@ -6,7 +6,6 @@ interface Props {
     data: todoType;
     isCompleted: boolean;
     setCompleted: React.Dispatch<React.SetStateAction<boolean>>;
-    input: string;
     setInput: React.Dispatch<React.SetStateAction<string>>;
     setEdited: React.Dispatch<React.SetStateAction<boolean>>;
     
@@ -16,42 +15,27 @@ const TodoItem: React.FC<Props> = (props) => {
     const { data, todoList, setTodo, setInput, setEdited } = props;
 
 
-    const handleComplete = () => {
-        const updatedList = todoList.map(item => {
-            if (item.id === data.id) {
-                return {
-                    ...item,
-                    isCompleted: !item.isCompleted,
-                }
-            } else {
-                return {...item}
-            }
-        })
+    const handleComplete = ():void => {
+        const updatedList: todoType[] = [...todoList]
+
+        updatedList[data.id - 1].isCompleted = !updatedList[data.id - 1].isCompleted
 
         setTodo(updatedList)
     }
 
-    const handleDelete = () => {
+    const handleDelete = ():void => {
         const updatedList = todoList.filter(item => item.id !== data.id)
 
         setTodo(updatedList)
     }
 
-    const handleEdit = () => {
-        const updatedList = todoList.map(item => {
-            if (item.id === data.id) {
-                return {
-                    ...item,
-                    isEdited: !item.isEdited
-                }
-            } else {
-                return {...item, isEdited: false}
-            }
-
-        })
+    const handleEdit = ():void => {
+        const updatedList: todoType[] = [...todoList]
+        
+        updatedList[data.id - 1].isEdited = !updatedList[data.id - 1].isEdited
         setTodo(updatedList)
 
-        if (!data.isEdited) {
+        if (data.isEdited) {
             setInput(data.content)
             setEdited(true)
         } else {
@@ -63,15 +47,15 @@ const TodoItem: React.FC<Props> = (props) => {
 
   return (
     <li className={data.isCompleted ? "app__item completed" : "app__item"}>
-      <span>{data.content}</span>
+      <span>{data.id}. {data.content}</span>
       <div className="app-item__btns">
         <button className="app__btn app__btn--complete" onClick={handleComplete}>
-            {data.isCompleted ? "Completed" : "Complete"}
+            {data.isCompleted ? "Completed" : "Incomplete"}
         </button>
         <button className={data.isEdited ? "app__btn app__btn--edit editting" : "app__btn app__btn--edit"} onClick={handleEdit}>
             {data.isEdited ? "Editting" : "Edit"}
         </button>
-        <button className="app__btn app__btn--delete" onClick={handleDelete}>Delete</button>
+        <button className="app__btn app__btn--delete" onClick={handleDelete}>&times;</button>
       </div>
     </li>
   );

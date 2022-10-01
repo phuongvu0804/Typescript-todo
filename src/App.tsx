@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
-import Form from './components/Form';
 
+import Form from './components/Form';
 import TodoItem from './components/TodoItem';
+
 import { todoType } from './types';
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
   return (
     <div className="app">
       <h1 className="app__title">To-do app</h1>
-      <div className="app__content">
+      <section className="app__content">
         <Form 
           todo={todo} 
           setTodo={setTodo} 
@@ -31,13 +32,12 @@ function App() {
               data={item} 
               isCompleted={isCompleted} 
               setCompleted={setCompleted}
-              input={input} 
               setInput={setInput}
               setEdited={setEdited}
             />
           ))}
         </ul>
-      </div>
+      </section>
     </div>
   );
 }

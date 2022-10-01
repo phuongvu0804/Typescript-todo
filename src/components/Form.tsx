@@ -11,45 +11,50 @@ interface Props {
 const Form: React.FC<Props> = (props) => {
     const { todo, setTodo, input, setInput, isEdited  } = props;
 
-    const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const handleInput = (e: React.FormEvent<HTMLInputElement>):void => {
         setInput(e.currentTarget.value)
-
     }
 
-    const handleSubmit = () => {
-        if (input !== "") {
-            if (isEdited) {
-                const updatedList = todo.map(item => {
-                    if (item.isEdited) {
-                        return {
-                            ...item,
-                            content: input,
-                            isEdited: false,
-                        }
-                    } else {
-                        return {...item}
+    const addTodo = (input: string):void => {
+        if (isEdited) {
+            const updatedList = todo.map(item => {
+                if (item.isEdited) {
+                    return {
+                        ...item,
+                        content: input,
+                        isEdited: false,
                     }
-                })
-                setTodo(updatedList)
-    
-            } else {
-                setTodo(prev => [...prev, {
-                    id: todo.length + 1,
-                    content: input,
-                    isCompleted: false,
-                    isEdited: false
-                }])
-            }
+                } else {
+                    return {...item}
+                }
+            })
+            setTodo(updatedList)
+
+        } else {
+            setTodo(prev => [...prev, {
+                id: todo.length + 1,
+                content: input,
+                isCompleted: false,
+                isEdited: false
+            }])
+        }
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>):void => {
+        e.preventDefault();
+
+        if (input !== "") {
+            addTodo(input)
     
             setInput("")
         }
     }
 
   return (
-    <div className="app__input-wrapper">
+    <form className="app__input-wrapper"  onSubmit={handleSubmit}>
       <input className="app__input" type="text" required value={input || ""} onChange={(e) => handleInput(e)}/>
-      <button className="app__btn app__btn--submit" onClick={handleSubmit}>Submit</button>
-    </div>
+      <button type="submit" className="app__btn app__btn--submit">Submit</button>
+    </form>
   );
 };
 
